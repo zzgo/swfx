@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://www.mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cwfx.mapper.NewsMapper">
+
+	<!-- 配置MAP -->
+	<resultMap type="news" id="BaseResultMap">
+		<id column="news_id" property="id" />
+		<result column="news_title" property="title" />
+		<result column="news_subTitle" property="subTitle" />
+		<result column="news_summary" property="summary" />
+		<result column="news_author" property="author" />
+		<result column="news_editor" property="editor" />
+		<result column="news_from" property="from" />
+		<result column="news_addTime" property="addTime" />
+		<result column="news_content" property="content" />
+		<result column="news_image" property="image" />
+		<result column="news_audit" property="audit" />
+		<result column="news_auditor" property="auditor" />
+		<result column="news_auditorTime" property="auditorTime" />
+		<result column="news_navId" property="navId" />
+		<result column="news_status" property="status" />
+		<result column="news_timeStr" property="timeStr" />
+		<result column="news_clickCount" property="clickCount" />
+		
+	</resultMap>
+	<!--表名 -->
+	<sql id="tableName">
+		TAB_NEWS
+	</sql>
+	<!-- 字段 -->
+	<sql id="Field">
+		news_title,
+		news_subTitle,
+		news_summary,
+		news_author,
+		news_editor,
+		news_from,
+		news_addTime,
+		news_content,
+		news_image,
+		news_audit,
+		news_auditor,
+		news_auditorTime,
+		news_navId,
+		news_status,
+		news_timeStr,
+		news_clickCount
+	</sql>
+	<!-- 字段值 -->
+	<sql id="FieldValue">
+		#{title},
+		#{subTitle},
+		#{summary},
+		#{author},
+		#{editor},
+		#{from},
+		#{addTime},
+		#{content},
+		#{image},
+		#{audit},
+		#{auditor},
+		#{auditorTime},
+		#{navId},
+		#{status},
+		#{timeStr},
+		#{clickCount}
+	</sql>
+	<!-- 添加新闻 -->
+	<insert id="save" parameterType="news">
+		INSERT INTO
+		<include refid="tableName"></include>
+		(
+		<include refid="Field"></include>
+		)
+		VALUE(
+		<include refid="FieldValue"></include>
+		)
+	</insert>
+
+	<!-- 查询所有栏目下的新闻 -->
+	<select id="findNewsByPd" parameterType="pd" resultMap="BaseResultMap">
+		SELECT * FROM
+		<include refid="tableName"></include>
+		<where>
+			<if test="title!=null and title.length()>0">
+				news_title = #{title}
+			</if>
+			<if test="subTitle!=null and subTitle.length()>0">
+				and news_subTitle = #{subTitle}
+			</if>
+			<if test="summary!=null and summary.length()>0">
+				and news_summary = #{summary}
+			</if>
+			<if test="author!=null and author.length()>0">
+				and news_author = #{author}
+			</if>
+			<if test="editor!=null and editor.length()>0">
+				and news_editor = #{editor}
+			</if>
+			<if test="from!=null and from.length()>0">
+				and news_from = #{from}
+			</if>
+			<if test="content!=null and content.length()>0">
+				and news_content = #{content}
+			</if>
+			<if test="audit!=null">
+				and news_audit = #{audit}
+			</if>
+			<if test="auditor!=null and auditor.length()>0">
+				and news_auditor = #{auditor}
+			</if>
+			<if test="auditorTime!=null and auditorTime.length()>0">
+				and news_auditorTime = #{auditorTime}
+			</if>
+			<if test="navId!=null">
+				and news_navId = #{navId}
+			</if>
+			<if test="status!=null">
+				and news_status = #{status}
+			</if>
+		</where>
+		ORDER BY news_addTime DESC LIMIT #{pageNum},#{pageSize}
+	</select>
+	<!-- 查询所有栏目下的新闻 总数 -->
+	<select id="findCountByPd" parameterType="pd" resultType="Integer">
+		SELECT COUNT(*) FROM
+		<include refid="tableName"></include>
+		<where>
+			<if test="title!=null and title.length()>0">
+				news_title = #{title}
+			</if>
+			<if test="subTitle!=null and subTitle.length()>0">
+				and news_subTitle = #{subTitle}
+			</if>
+			<if test="summary!=null and summary.length()>0">
+				and news_summary = #{summary}
+			</if>
+			<if test="author!=null and author.length()>0">
+				and news_author = #{author}
+			</if>
+			<if test="editor!=null and editor.length()>0">
+				and news_editor = #{editor}
+			</if>
+			<if test="from!=null and from.length()>0">
+				and news_from = #{from}
+			</if>
+			<if test="content!=null and content.length()>0">
+				and news_content = #{content}
+			</if>
+			<if test="audit!=null ">
+				and news_audit = #{audit}
+			</if>
+			<if test="auditor!=null and auditor.length()>0">
+				and news_auditor = #{auditor}
+			</if>
+			<if test="auditorTime!=null and auditorTime.length()>0">
+				and news_auditorTime = #{auditorTime}
+			</if>
+			<if test="navId!=null ">
+				and news_navId = #{navId}
+			</if>
+			<if test="status!=null ">
+				and news_status = #{status}
+			</if>
+		</where>
+	</select>
+
+	<!-- 查询一个 -->
+	<select id="findOne" parameterType="Integer" resultMap="BaseResultMap">
+		SELECT * FROM
+		<include refid="tableName"></include>
+		WHERE
+		news_id = #{value}
+	</select>
+
+	<update id="updateBy" parameterType="news">
+		UPDATE
+		<include refid="tableName"></include>
+		<set>
+			<if test="title!=null and title.length()>0">
+				news_title = #{title},
+			</if>
+			<if test="subTitle!=null and subTitle.length()>0">
+				news_subTitle = #{subTitle},
+			</if>
+			<if test="summary!=null and summary.length()>0">
+				news_summary = #{summary},
+			</if>
+			<if test="author!=null and author.length()>0">
+				news_author = #{author},
+			</if>
+			<if test="editor!=null and editor.length()>0">
+				news_editor = #{editor},
+			</if>
+			<if test="from!=null and from.length()>0">
+				news_from = #{from},
+			</if>
+			<if test="content!=null and content.length()>0">
+				news_content = #{content},
+			</if>
+			<if test="image!=null and image.length()>0">
+				news_image = #{image},
+			</if>
+			<if test="audit!=0">
+				news_audit = #{audit},
+			</if>
+			<if test="auditor!=null and  auditor.length()>0">
+				news_auditor = #{auditor},
+			</if>
+			<if test="auditorTime!=null and  auditorTime.length()>0">
+				news_auditorTime = #{auditorTime},
+			</if>
+			<if test="navId!=null and navId!=0">
+				news_navId = #{navId},
+			</if>
+			<if test="status!=0">
+				news_status = #{status},
+			</if>
+			<if test="clickCount!=0">
+				news_clickCount = #{clickCount}
+			</if>
+		</set>
+		WHERE
+		news_id = #{id}
+	</update>
+	<!-- 删除新闻 -->
+	<delete id="delete" parameterType="Integer">
+		DELETE FROM
+		<include refid="tableName"></include>
+		WHERE news_id = #{id}
+	</delete>
+
+</mapper>

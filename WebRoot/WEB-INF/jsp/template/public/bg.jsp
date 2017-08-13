@@ -1,0 +1,2 @@
+<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<img src="<%=request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/"%>assets/images/newsbg.png" class="newsbg" style="position: absolute;width:80%;top: 380px;left: 10%;	z-index:-1;"/>

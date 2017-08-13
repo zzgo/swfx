@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://www.mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cwfx.mapper.UserMapper">
+
+	<!-- 配置MAP -->
+	<resultMap type="user" id="BaseResultMap">
+		<id column="user_id" property="id" />
+		<result column="user_name" property="name" />
+		<result column="user_password" property="password" />
+		<result column="user_type" property="type" />
+		<result column="user_lastLoginTime" property="lastLoginTime" />
+		<result column="user_count" property="count" />
+	</resultMap>
+	<!--表名 -->
+	<sql id="tableName">
+		TAB_USER
+	</sql>
+	<!-- 字段 -->
+	<sql id="Field">
+		user_name,
+		user_password,
+		user_type,
+		user_lastLoginTime,
+		user_count
+	</sql>
+	<!-- 字段值 -->
+	<sql id="FieldValue">
+		#{user_name},
+		#{user_password},
+		#{user_type},
+		#{user_lastLoginTime},
+		#{user_count}
+	</sql>
+	<!-- 添加用户 -->
+	<insert id="save" parameterType="user">
+		INSERT INTO
+		<include refid="tableName"></include>
+		(
+		<include refid="Field"></include>
+		)
+		VALUE(
+		<include refid="FieldValue"></include>
+		)
+	</insert>
+	<!-- 查询所有用户 -->
+	<select id="findAll" resultMap="BaseResultMap">
+		SELECT * FROM
+		<include refid="tableName"></include>
+	</select>
+
+	<!--更新字段 -->
+	<update id="updateBy" parameterType="user">
+		UPDATE
+		<include refid="tableName"></include>
+		<set>
+			<if test="lastLoginTime!=''">
+				<if test="lastLoginTime!=null">
+					user_lastLoginTime = #{lastLoginTime},
+				</if>
+			</if>
+			<if test="count!=null">
+				<if test="count!=0">
+					user_count = #{count},
+				</if>
+			</if>
+			<if test="password!=null">
+				<if test="password!=''">
+					user_password = #{password}
+				</if>
+			</if>
+		</set>
+		WHERE user_id=#{id}
+	</update>
+	<!-- 查询单个 -->
+	<select id="findOne" parameterType="Integer" resultMap="BaseResultMap">
+		SELECT * FROM
+		<include refid="tableName"></include>
+		WHERE user_id = #{value}
+	</select>
+
+	<!-- 登录 -->
+	<select id="findByNamePass" resultMap="BaseResultMap">
+		SELECT * FROM
+		<include refid="tableName"></include>
+		WHERE user_name = #{name} AND user_password = #{password}
+	</select>
+
+</mapper>

@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://www.mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cwfx.mapper.NavMapper">
+
+	<!-- 配置MAP -->
+	<resultMap type="nav" id="BaseResultMap">
+		<id column="nav_id" property="id" />
+		<result column="nav_name" property="name" />
+		<result column="nav_link" property="link" />
+		<result column="nav_tempId" property="tempId" />
+		<result column="nav_description" property="description" />
+		<result column="nav_parentId" property="parentId" />
+		<result column="nav_parentName" property="parentName" />
+		<result column="nav_addTime" property="addTime" />
+		<result column="nav_show" property="show" />
+		<result column="nav_order" property="order" />
+	</resultMap>
+	<!--表名 -->
+	<sql id="tableName">
+		TAB_NAV
+	</sql>
+	<!-- 字段 -->
+	<sql id="Field">
+		nav_name,
+		nav_link,
+		nav_tempId,
+		nav_description,
+		nav_parentId,
+		nav_parentName,
+		nav_addTime,
+		nav_show,
+		nav_order
+	</sql>
+	<!-- 字段值 -->
+	<sql id="FieldValue">
+		#{name},
+		#{link},
+		#{tempId},
+		#{description},
+		#{parentId},
+		#{parentName},
+		#{addTime},
+		#{show},
+		#{order}
+	</sql>
+	<!-- 添加栏目 -->
+	<insert id="save" parameterType="nav">
+		INSERT INTO
+		<include refid="tableName"></include>
+		(
+		<include refid="Field"></include>
+		)
+		VALUE(
+		<include refid="FieldValue"></include>
+		)
+	</insert>
+
+	<!-- 查询某级栏目 -->
+	<select id="findNavByParentId" parameterType="Integer"
+		resultMap="BaseResultMap">
+		SELECT * FROM
+		<include refid="tableName"></include>
+		WHERE nav_parentId = #{parentId} AND nav_show = 1 AND ORDER BY nav_order , nav_addTime
+	</select>
+
+	<select id="findNavByShow" resultMap="BaseResultMap">
+		SELECT * FROM
+		<include refid="tableName"></include>
+		WHERE nav_show = #{show}  ORDER BY
+		nav_addTime
+	</select>
+	<!-- 查询某级栏目 -->
+	<select id="findNavByParentIdAndShow" resultMap="BaseResultMap">
+		SELECT * FROM
+		<include refid="tableName"></include>
+		WHERE nav_parentId = #{parentId} AND nav_show=#{show} ORDER BY
+		nav_addTime
+	</select>
+	<!-- 查询一个栏目 -->
+	<select id="findOne" parameterType="Integer" resultMap="BaseResultMap">
+		SELECT * FROM
+		<include refid="tableName"></include>
+		WHERE nav_id = #{id}
+	</select>
+	<!-- 查询一个栏目 -->
+	<select id="findNavByName" parameterType="String" resultMap="BaseResultMap">
+		SELECT * FROM
+		<include refid="tableName"></include>
+		WHERE nav_name = #{name}
+	</select>
+	<!-- 查询一个栏目by链接 -->
+	<select id="findNavByLink" parameterType="String" resultMap="BaseResultMap">
+		SELECT * FROM
+		<include refid="tableName"></include>
+		WHERE nav_link = #{link}
+	</select>
+	<!-- 更新 -->
+	<update id="updateBy" parameterType="nav">
+		UPDATE
+		<include refid="tableName"></include>
+		<set>
+			<if test="name!=null">
+				<if test="name!=''">
+					nav_name=#{name},
+				</if>
+			</if>
+
+			<if test="link!=null">
+				<if test="link!=''">
+					nav_link=#{link},
+				</if>
+			</if>
+
+			<if test="tempId!=0">
+				<if test="tempId!=null">
+					nav_tempId=#{tempId},
+				</if>
+			</if>
+
+			<if test="description!=null">
+				<if test="description!=''">
+					nav_description=#{description},
+				</if>
+			</if>
+
+			<if test="parentId!=null">
+				nav_parentId=#{parentId},
+			</if>
+			<if test="parentName!=null">
+				<if test="parentName!=''">
+					nav_parentName=#{parentName},
+				</if>
+			</if>
+			
+			<if test="show!=null">
+				nav_show=#{show}
+			</if>
+		</set>
+		WHERE nav_id = #{id}
+	</update>
+	<delete id="delete" parameterType="Integer">
+		DELETE FROM
+		<include refid="tableName"></include>
+		WHERE nav_id = #{id}
+	</delete>
+</mapper>

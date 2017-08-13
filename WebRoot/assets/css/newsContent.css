@@ -1,0 +1,192 @@
+.main-details {
+	margin: 0 12%;
+	width: 76%;
+}
+
+body {
+	background:#f3f5f7;
+}
+
+.main-content {
+	background: #fff !important;
+}
+
+.idea {
+	width: 100%;
+	height: 200px;
+}
+
+.idea img {
+	height: 100%;
+	width: 100%;
+}
+
+.details-position {
+	width: 100%;
+	margin: 10px 0;
+	padding: 20px 0;
+	border-bottom: 1px solid #ccc;
+}
+
+.aside-left {
+	width: 70% !important;
+	float: left;
+}
+
+.second-titile {
+	margin: 0 13%;
+	width: 74%;
+}
+
+.second-titile p {
+	display: block;
+	font-size: 18px;
+	padding: 15px 0;
+	width: 100px;
+	text-align: center;
+	border-bottom: 2px solid #7b7774;
+}
+
+.details-position p img {
+	height: 18px;
+	width: 18px;
+	margin: 0 5px;
+}
+
+.news {
+	width: 100%;
+}
+
+.aside-column {
+	width: 20% !important;
+	margin-left: 4%;
+	float: left;
+	z-index: 101;
+}
+
+.aside-1 {
+	margin-top: 40px;
+	width: 100%;
+	overflow: hidden;
+}
+
+.tab_ul {
+	width: 100%;
+	height: 35px;
+	border-bottom: 1px solid #ccc;
+	cursor: pointer;
+}
+
+.tab_ul li {
+	display: block;
+	float: left;
+	width: 25%;
+	height: 35px;
+	line-height: 35px;
+	text-align: center;
+	font-size: 15px;
+	font-family: "微软雅黑";
+}
+
+.tab_ul_on {
+	background: #f8985e;
+	color: white;
+}
+
+.nm_ul {
+	width: 100%;
+	display: none;
+	float: left;
+	cursor: pointer;
+	background: url(../images/list1.png) no-repeat 0 20px;
+}
+
+.show {
+	display: block;
+}
+
+.nm_ul li {
+	display: block;
+	width: 100%;
+	height: 30px;
+	font-size: 13px;
+	padding: 15px 0 0 30px;
+	border-bottom: 1px solid #ccc;
+}
+
+.nm_ul li span {
+	float: right;
+	margin-right: 60px;
+	color: #666;
+}
+
+.nm_ul li a {
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+
+.news-page {
+	position: relative;
+	text-align: center;
+	width: 100%;
+	top: 560px;
+}
+
+.page {
+	width: 386px;
+	margin: 0 auto;
+}
+
+.news-page a {
+	padding: 5px 10px;
+	float: left;
+	font-size: 16px;
+	border: 1px solid #ccc;
+	margin-left: 10px;
+}
+
+.nomargin {
+	margin-left: 0;
+}
+
+.newsbg {
+	position: absolute;
+	width: 80%;
+	top: 380px;
+	left: 10%;
+	z-index: -1;
+}
+
+.main-content .content-title {
+	text-align: center;
+	font-size: 18px;
+	font-family: "微软雅黑";
+	padding: 10px 0;
+}
+
+.content-message {
+	text-align: center;
+	font-size: 14px;
+	font-family: "微软雅黑";
+	color: #666;
+	padding: 10px 0;
+	border-bottom: 1px solid #888;
+}
+
+.main-html {
+	height: auto;
+	/*text-align: center;*/
+	padding: 5px;
+	padding-bottom: 10px;
+}
+
+.main-html img {
+	max-width: 80%;
+	margin: 0 auto;
+}
+
+.main-html p {
+	margin: 10px 0;
+	font-size: 0.14rem;
+}

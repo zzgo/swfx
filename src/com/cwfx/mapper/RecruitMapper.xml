@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://www.mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cwfx.mapper.RecruitMapper">
+
+	<!-- 配置MAP -->
+	<resultMap type="Recruit" id="BaseResultMap">
+		<id column="rec_id" property="id" />
+		<result column="rec_name" property="name" />
+		<result column="rec_sex" property="sex" />
+		<result column="rec_date" property="date" />
+		<result column="rec_politics" property="politics" />
+		<result column="rec_title" property="title" />
+		<result column="rec_pth" property="pth" />
+		<result column="rec_english" property="english" />
+		<result column="rec_call" property="call" />
+		<result column="rec_position" property="position" />
+		<result column="rec_time" property="time" />
+		<result column="rec_address" property="address" />
+		<result column="rec_person" property="person" />
+		<result column="rec_winning" property="winning" />
+		<result column="rec_createTime" property="createTime" />
+	</resultMap>
+	<!--表名 -->
+	<sql id="tableName">
+		TAB_RECRUIT
+	</sql>
+	<!-- 字段 -->
+	<sql id="Field">
+		rec_name,
+		rec_sex,
+		rec_date,
+		rec_politics,
+		rec_title,
+		rec_pth,
+		rec_english,
+		rec_call,
+		rec_position,
+		rec_time,
+		rec_address,
+		rec_person,
+		rec_winning,
+		rec_createTime
+	</sql>
+	<!-- 字段值 -->
+	<sql id="FieldValue">
+		#{name},
+		#{sex},
+		#{date},
+		#{politics},
+		#{title},
+		#{pth},
+		#{english},
+		#{call},
+		#{position},
+		#{time},
+		#{address},
+		#{person},
+		#{winning},
+		#{createTime}
+	</sql>
+	<!-- 添加教师招聘 -->
+	<insert id="save" parameterType="recruit">
+		INSERT INTO
+		<include refid="tableName"></include>
+		(
+		<include refid="Field"></include>
+		)
+		VALUE(
+		<include refid="FieldValue"></include>
+		)
+	</insert>
+
+	<!-- 查询所有教师招聘 -->
+	<select id="findRecruitByPd" parameterType="pd" resultMap="BaseResultMap">
+		SELECT * FROM
+		<include refid="tableName"></include>
+		ORDER BY rec_createTime DESC LIMIT #{pageNum},#{pageSize}
+	</select>
+
+	<!-- 查询所有教师招聘条目 -->
+	<select id="findCountByPd" resultType="Integer">
+		SELECT COUNT(*) FROM
+		<include refid="tableName"></include>
+	</select>
+	<!-- 导出时间段的教师 -->
+	<select id="findRecruitByTime" resultMap="BaseResultMap">
+		SELECT * FROM
+		<include refid="tableName"></include>
+		WHERE
+		rec_createTime >= #{startTime} and rec_createTime &lt; #{endTime}
+		ORDER BY rec_createTime DESC
+	</select>
+
+</mapper>

@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://www.mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cwfx.mapper.MailMapper">
+
+	<!-- 配置MAP -->
+	<resultMap type="mail" id="BaseResultMap">
+		<id column="mail_id" property="id" />
+		<result column="mail_content" property="content" />
+		<result column="mail_name" property="name" />
+		<result column="mail_call" property="call" />
+		<result column="mail_email" property="email" />
+		<result column="mail_date" property="date" />
+		<result column="mail_reply" property="reply" />
+		<result column="mail_show" property="show" />
+	</resultMap>
+	<!--表名 -->
+	<sql id="tableName">
+		TAB_MAIL
+	</sql>
+	<!-- 字段 -->
+	<sql id="Field">
+		mail_content,
+		mail_name,
+		mail_call,
+		mail_email,
+		mail_date,
+		mail_reply,
+		mail_show
+	</sql>
+	<!-- 字段值 -->
+	<sql id="FieldValue">
+		#{content},
+		#{name},
+		#{call},
+		#{email},
+		#{date},
+		#{reply},
+		#{show}
+	</sql>
+	<!-- 添加信箱 -->
+	<insert id="save" parameterType="mail">
+		INSERT INTO
+		<include refid="tableName"></include>
+		(
+		<include refid="Field"></include>
+		)
+		VALUE(
+		<include refid="FieldValue"></include>
+		)
+	</insert>
+
+	<!-- 查询所有信箱 -->
+	<select id="findMailByPd" parameterType="pd" resultMap="BaseResultMap">
+		SELECT * FROM
+		<include refid="tableName"></include>
+		<where>
+			<if test="content!=null and content != ''">
+				mail_content=#{content}
+			</if>
+			<if test="name!=null and name != ''">
+				and mail_name=#{name}
+			</if>
+			<if test="call!=null and call != ''">
+				and mail_call=#{call}
+			</if>
+			<if test="email!=null and email != ''">
+				and mail_email=#{email}
+			</if>
+			<if test="reply!=null and reply != ''">
+				and mail_reply=#{reply}
+			</if>
+			<if test="show!=null">
+				and mail_show=#{show}
+			</if>
+		</where>
+		ORDER BY mail_date DESC LIMIT #{pageNum},#{pageSize}
+	</select>
+
+	<!-- 查询所有信箱 条目 -->
+	<select id="getCountByPd" parameterType="pd" resultType="Integer">
+		SELECT COUNT(*) FROM
+		<include refid="tableName"></include>
+		<where>
+			<if test="content!=null and content != ''">
+				mail_content=#{content}
+			</if>
+			<if test="name!=null and name != ''">
+				and mail_name=#{name}
+			</if>
+			<if test="call!=null and call != ''">
+				and mail_call=#{call}
+			</if>
+			<if test="email!=null and email != ''">
+				and mail_email=#{email}
+			</if>
+			<if test="reply!=null and reply != ''">
+				and mail_reply=#{reply}
+			</if>
+			<if test="show!=null">
+				and mail_show=#{show}
+			</if>
+		</where>
+	</select>
+	<!-- 回复内容加审核 -->
+	<update id="update" parameterType="mail">
+		UPDATE
+		<include refid="tableName"></include>
+		<set>
+			<if test="reply!=null and reply.length()>0">
+				mail_reply = #{reply},
+			</if>
+			<if test="show!=null and show!=0">
+				mail_show = #{show}
+			</if>
+		</set>
+		WHERE mail_id = #{id}
+	</update>
+	<select id="getOne" parameterType="Integer" resultMap="BaseResultMap">
+		SELECT * FROM
+		<include refid="tableName"></include>
+		WHERE mail_id = #{id}
+	</select>
+	<delete id="delete" parameterType="Integer">
+		DELETE FROM
+		<include refid="tableName"></include>
+		WHERE mail_id = #{id}
+	</delete>
+</mapper>
