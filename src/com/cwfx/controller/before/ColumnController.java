@@ -115,6 +115,8 @@ public class ColumnController extends BaseController {
 		 * 通知公告
 		 */
 		PageData pd2 = new PageData();
+		pd2.put("audit", Constants.TWO);
+		pd2.put("status", Constants.ONE);
 		Nav tzgg = navService.findNavByName("通知公告");
 		pd2.put("pageNum", 0);
 		pd2.put("pageSize", 5);
@@ -148,7 +150,10 @@ public class ColumnController extends BaseController {
 	ModelAndView link(@PathVariable(value = "id") Integer id) {
 		ModelAndView mv = this.getMV();
 		try {
-
+			PageData pd = new PageData();
+			pd.put("audit", Constants.TWO);
+			pd.put("status", Constants.ONE);
+			
 			/**
 			 * 1.导航栏
 			 */
@@ -172,7 +177,7 @@ public class ColumnController extends BaseController {
 			/*
 			 * 通知公告
 			 */
-			PageData pd = new PageData();
+			
 			Nav tzgg = navService.findNavByName("通知公告");
 			pd.put("pageNum", 0);
 			pd.put("pageSize", 5);

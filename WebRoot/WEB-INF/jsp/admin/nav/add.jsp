@@ -85,7 +85,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         <tr>  
                             <td class="tdWidth">说明</td>  
                             <td>  <textarea class="form-control" rows="3" name="description" >${nav.description }</textarea> </td>   
-                        </tr>    
+                        </tr>  
+                        <tr>  
+                            <td class="tdWidth">排序（数字小靠前）</td>  
+                            <td><input type="number" min="1" class="form-control" id="exampleInputNmae1" placeholder="排序" name="order" value="${nav.order>=1?nav.order:999}"></td>   
+                        </tr>   
                     </tbody> 
             
                 </table>       

@@ -9,6 +9,7 @@ body {
 
 .main-content {
 	background: #fff !important;
+	padding-top:30px;
 }
 
 .idea {
@@ -160,7 +161,7 @@ body {
 
 .main-content .content-title {
 	text-align: center;
-	font-size: 18px;
+	font-size: 20px;
 	font-family: "微软雅黑";
 	padding: 10px 0;
 }

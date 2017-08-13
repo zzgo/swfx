@@ -56,17 +56,17 @@
 	</insert>
 
 	<!-- 查询某级栏目 -->
-	<select id="findNavByParentId" parameterType="Integer"
-		resultMap="BaseResultMap">
+	<select id="findNavByParentId" resultMap="BaseResultMap">
 		SELECT * FROM
 		<include refid="tableName"></include>
-		WHERE nav_parentId = #{parentId} AND nav_show = 1 AND ORDER BY nav_order , nav_addTime
+		WHERE nav_parentId = #{parentId}
+		ORDER BY nav_order , nav_addTime
 	</select>
 
 	<select id="findNavByShow" resultMap="BaseResultMap">
 		SELECT * FROM
 		<include refid="tableName"></include>
-		WHERE nav_show = #{show}  ORDER BY
+		WHERE nav_show = #{show} ORDER BY
 		nav_addTime
 	</select>
 	<!-- 查询某级栏目 -->
@@ -131,9 +131,11 @@
 					nav_parentName=#{parentName},
 				</if>
 			</if>
-			
 			<if test="show!=null">
-				nav_show=#{show}
+				nav_show=#{show}, 
+			</if>
+			<if test="order != 0">
+				nav_order=#{order}
 			</if>
 		</set>
 		WHERE nav_id = #{id}

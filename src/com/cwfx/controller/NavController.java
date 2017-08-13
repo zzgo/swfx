@@ -83,6 +83,11 @@ public class NavController extends BaseController {
 			Nav n = navService.findOne(id);
 			nav.setParentName(n != null ? n.getName() : "顶级栏目");
 			nav.setAddTime(TimeStampUtil.getTimestamp());
+			int order = nav.getOrder();
+			if (order == 0) {
+				order = 999;
+			}
+			nav.setOrder(order);
 			navService.save(nav);
 			logger.info("## [" + TimeStampUtil.getTimestamp() + "]\t"
 					+ getUserInfo().getName() + "添加了一个<< " + nav.getName()

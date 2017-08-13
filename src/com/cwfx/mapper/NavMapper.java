@@ -12,7 +12,9 @@ public interface NavMapper {
 	Nav findNavByName(@Param(value = "name") String name);
 
 	List<Nav> findNavByParentId(@Param(value = "parentId") Integer parentId);
-
+	
+	
+	
 	List<Nav> findNavByParentIdAndShow(
 			@Param(value = "parentId") Integer parentId,
 			@Param(value = "show") Integer show);
